@@ -1,0 +1,48 @@
+name: Linux tests
+
+on:
+  push:
+    paths:
+      - '**'
+
+  pull_request:
+    paths:
+      - '**'
+
+jobs:
+  build:
+    name: 'Py${{ matrix.PYTHON_VERSION }}'
+    runs-on: ubuntu-latest
+    env:
+      PYTHON_VERSION: '${{ matrix.PYTHON_VERSION }}'
+    strategy:
+      fail-fast: false 
+      matrix:
+        PYTHON_VERSION: ['3.8']
+    steps:
+      - name: Checkout Pull Requests
+        uses: actions/checkout@v2
+      - name: Install python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '${{ matrix.PYTHON_VERSION }}'
+      - name: Install dependencies
+        run: pip install cookiecutter pre-commit
+      - name: Run default cookiecutter
+        run: |
+          cd ..
+          cookiecutter spyder5-plugin-cookiecutter --no-input
+          cd spyder-boilerplate
+          python setup.py develop
+      - name: Check format of created code
+        run: |
+          cd ..
+          cd spyder-boilerplate
+          git init
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
+          git add .
+          git commit -m "Test"
+          pre-commit run -a || true
+          git --no-pager diff
+          pre-commit run -a
