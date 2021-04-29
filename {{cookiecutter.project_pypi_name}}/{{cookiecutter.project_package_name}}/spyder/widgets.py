@@ -64,7 +64,7 @@ class {{cookiecutter.project_name.replace(" ", "")}}Widget(PluginMainWidget):
     def get_focus_widget(self):
         pass
 
-    def setup(self, options=DEFAULT_OPTIONS):
+    def setup(self):
         # Create an example action
         example_action = self.create_action(
             name={{cookiecutter.project_name.replace(" ", "")}}Actions.ExampleAction,
