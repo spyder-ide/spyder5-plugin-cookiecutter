@@ -5,5 +5,7 @@
 # Licensed under the terms of the {{ cookiecutter.open_source_license }}
 # ----------------------------------------------------------------------------
 """
-{{cookiecutter.project_name}}.
+{{cookiecutter.project_name}}
+
+{{cookiecutter.project_short_description}}.
 """

@@ -7,10 +7,21 @@
 """
 {{cookiecutter.project_name}} Main Widget.
 """
-from spyder.api.translations import get_translation
-{% if cookiecutter.plugin_type == 'Spyder Dockable Plugin' %}from qtpy.QtWidgets import QHBoxLayout, QLabel{% endif %}
-{% if cookiecutter.plugin_type == 'Spyder Dockable Plugin' %}from spyder.api.widgets import PluginMainWidget{% else %}from spyder.api.widgets.mixins import SpyderWidgetMixin{% endif %}
 
+{% if cookiecutter.plugin_type == 'Spyder Dockable Plugin' %}
+# Third party imports
+from qtpy.QtWidgets import QHBoxLayout, QLabel
+{% endif %}
+
+# Spyder imports
+from spyder.api.translations import get_translation
+{% if cookiecutter.plugin_type == 'Spyder Dockable Plugin' %}
+from spyder.api.widgets.main_widget import PluginMainWidget
+{% else %}
+from spyder.api.widgets.mixins import SpyderWidgetMixin
+{% endif %}
+
+# Localization
 _ = get_translation("{{cookiecutter.project_package_name}}.spyder")
 
 
@@ -28,12 +39,11 @@ class {{cookiecutter.project_name.replace(" ", "")}}OptionsMenuSections:
 
 
 class {{cookiecutter.project_name.replace(" ", "")}}Widget(PluginMainWidget):
-    DEFAULT_OPTIONS = {}
 
     # Signals
 
-    def __init__(self, name, plugin, parent=None, options=DEFAULT_OPTIONS):
-        super().__init__(name, plugin, parent=parent, options=options)
+    def __init__(self, name=None, plugin=None, parent=None):
+        super().__init__(name, plugin, parent)
 
         # Create an example label
         self._example_label = QLabel("Example Label")
@@ -43,7 +53,7 @@ class {{cookiecutter.project_name.replace(" ", "")}}Widget(PluginMainWidget):
         layout.addWidget(self._example_label)
         self.setLayout(layout)
 
-    # --- PluginMainContainer API
+    # --- PluginMainWidget API
     # ------------------------------------------------------------------------
     def get_title(self):
         return _("{{cookiecutter.project_name}}")
@@ -77,9 +87,6 @@ class {{cookiecutter.project_name.replace(" ", "")}}Widget(PluginMainWidget):
             toolbar,
             {{cookiecutter.project_name.replace(" ", "")}}OptionsMenuSections.ExampleSection,
         )
-
-    def on_option_update(self, option, value):
-        pass
 
     def update_actions(self):
         pass

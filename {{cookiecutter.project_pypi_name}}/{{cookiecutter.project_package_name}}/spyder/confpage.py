@@ -13,7 +13,7 @@ from spyder.api.translations import get_translation
 _ = get_translation("{{cookiecutter.project_package_name}}.spyder")
 
 
-class {{cookiecutter.project_name.replace(" ", "")}}ConfPage(PluginConfigPage):
+class {{cookiecutter.project_name.replace(" ", "")}}ConfigPage(PluginConfigPage):
 
     # --- PluginConfigPage API
     # ------------------------------------------------------------------------

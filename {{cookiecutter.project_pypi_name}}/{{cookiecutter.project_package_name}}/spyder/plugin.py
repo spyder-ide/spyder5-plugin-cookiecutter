@@ -9,11 +9,10 @@
 """
 
 from qtpy.QtGui import QIcon
-from spyder.api.plugins import Plugins
-from spyder.api.plugins import {% if cookiecutter.plugin_type == 'Spyder Dockable Plugin' %}SpyderDockablePlugin{% else %}SpyderPluginV2{% endif %}
+from spyder.api.plugins import Plugins, {% if cookiecutter.plugin_type == 'Spyder Dockable Plugin' %}SpyderDockablePlugin{% else %}SpyderPluginV2{% endif %}
 from spyder.api.translations import get_translation
 
-from {{cookiecutter.project_package_name}}.spyder.confpage import {{cookiecutter.project_name.replace(" ", "")}}ConfPage
+from {{cookiecutter.project_package_name}}.spyder.confpage import {{cookiecutter.project_name.replace(" ", "")}}ConfigPage
 {% if cookiecutter.plugin_type == 'Spyder Dockable Plugin' %}from {{cookiecutter.project_package_name}}.spyder.widgets import {{cookiecutter.project_name.replace(" ", "")}}Widget{% else %}from {{cookiecutter.project_package_name}}.spyder.container import {{cookiecutter.project_name.replace(" ", "")}}Container{% endif %}
 
 _ = get_translation("{{cookiecutter.project_package_name}}.spyder")
@@ -33,11 +32,11 @@ class {{cookiecutter.project_name.replace(" ", "")}}({% if cookiecutter.plugin_t
     CONTAINER_CLASS = {{cookiecutter.project_name.replace(" ", "")}}Container
     {% endif -%}
     CONF_SECTION = NAME
-    CONF_WIDGET_CLASS = {{cookiecutter.project_name.replace(" ", "")}}ConfPage
+    CONF_WIDGET_CLASS = {{cookiecutter.project_name.replace(" ", "")}}ConfigPage
 
     # --- Signals
 
-    # --- SpyderPlugin API
+    # --- {% if cookiecutter.plugin_type == 'Spyder Dockable Plugin' -%}SpyderDockablePlugin{% else %}SpyderPluginV2{% endif %} API
     # ------------------------------------------------------------------------
     def get_name(self):
         return _("{{cookiecutter.project_name}}")
