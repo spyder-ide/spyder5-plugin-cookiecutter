@@ -8,10 +8,14 @@
 {{cookiecutter.project_name}} Plugin.
 """
 
+# Third-party imports
 from qtpy.QtGui import QIcon
+
+# Spyder imports
 from spyder.api.plugins import Plugins, {% if cookiecutter.plugin_type == 'Spyder Dockable Plugin' %}SpyderDockablePlugin{% else %}SpyderPluginV2{% endif %}
 from spyder.api.translations import get_translation
 
+# Local imports
 from {{cookiecutter.project_package_name}}.spyder.confpage import {{cookiecutter.project_name.replace(" ", "")}}ConfigPage
 {% if cookiecutter.plugin_type == 'Spyder Dockable Plugin' %}from {{cookiecutter.project_package_name}}.spyder.widgets import {{cookiecutter.project_name.replace(" ", "")}}Widget{% else %}from {{cookiecutter.project_package_name}}.spyder.container import {{cookiecutter.project_name.replace(" ", "")}}Container{% endif %}
 

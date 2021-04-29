@@ -14,6 +14,7 @@ from qtpy.QtWidgets import QHBoxLayout, QLabel
 {% endif %}
 
 # Spyder imports
+from spyder.api.config.decorators import on_conf_change
 from spyder.api.translations import get_translation
 {% if cookiecutter.plugin_type == 'Spyder Dockable Plugin' %}
 from spyder.api.widgets.main_widget import PluginMainWidget
@@ -39,6 +40,8 @@ class {{cookiecutter.project_name.replace(" ", "")}}OptionsMenuSections:
 
 
 class {{cookiecutter.project_name.replace(" ", "")}}Widget(PluginMainWidget):
+
+    # PluginMainWidget class constants
 
     # Signals
 
@@ -89,6 +92,10 @@ class {{cookiecutter.project_name.replace(" ", "")}}Widget(PluginMainWidget):
         )
 
     def update_actions(self):
+        pass
+
+    @on_conf_change
+    def on_section_conf_change(self, section):
         pass
 
     # --- Public API
