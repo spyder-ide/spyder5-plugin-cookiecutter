@@ -71,7 +71,6 @@ class {{cookiecutter.project_name.replace(" ", "")}}Widget(PluginMainWidget):
             text="Example action",
             tip="Example hover hint",
             icon=self.create_icon("spyder"),
-            icon_text="Example icon text",
             triggered=lambda: print("Example action triggered!"),
         )
 
