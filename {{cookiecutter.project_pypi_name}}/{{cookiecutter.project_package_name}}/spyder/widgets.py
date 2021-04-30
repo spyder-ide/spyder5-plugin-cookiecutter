@@ -7,10 +7,22 @@
 """
 {{cookiecutter.project_name}} Main Widget.
 """
-from spyder.api.translations import get_translation
-{% if cookiecutter.plugin_type == 'Spyder Dockable Plugin' %}from qtpy.QtWidgets import QHBoxLayout, QLabel{% endif %}
-{% if cookiecutter.plugin_type == 'Spyder Dockable Plugin' %}from spyder.api.widgets import PluginMainWidget{% else %}from spyder.api.widgets.mixins import SpyderWidgetMixin{% endif %}
 
+{% if cookiecutter.plugin_type == 'Spyder Dockable Plugin' %}
+# Third party imports
+from qtpy.QtWidgets import QHBoxLayout, QLabel
+{% endif %}
+
+# Spyder imports
+from spyder.api.config.decorators import on_conf_change
+from spyder.api.translations import get_translation
+{% if cookiecutter.plugin_type == 'Spyder Dockable Plugin' %}
+from spyder.api.widgets.main_widget import PluginMainWidget
+{% else %}
+from spyder.api.widgets.mixins import SpyderWidgetMixin
+{% endif %}
+
+# Localization
 _ = get_translation("{{cookiecutter.project_package_name}}.spyder")
 
 
@@ -28,12 +40,13 @@ class {{cookiecutter.project_name.replace(" ", "")}}OptionsMenuSections:
 
 
 class {{cookiecutter.project_name.replace(" ", "")}}Widget(PluginMainWidget):
-    DEFAULT_OPTIONS = {}
+
+    # PluginMainWidget class constants
 
     # Signals
 
-    def __init__(self, name, plugin, parent=None, options=DEFAULT_OPTIONS):
-        super().__init__(name, plugin, parent=parent, options=options)
+    def __init__(self, name=None, plugin=None, parent=None):
+        super().__init__(name, plugin, parent)
 
         # Create an example label
         self._example_label = QLabel("Example Label")
@@ -43,7 +56,7 @@ class {{cookiecutter.project_name.replace(" ", "")}}Widget(PluginMainWidget):
         layout.addWidget(self._example_label)
         self.setLayout(layout)
 
-    # --- PluginMainContainer API
+    # --- PluginMainWidget API
     # ------------------------------------------------------------------------
     def get_title(self):
         return _("{{cookiecutter.project_name}}")
@@ -51,14 +64,13 @@ class {{cookiecutter.project_name.replace(" ", "")}}Widget(PluginMainWidget):
     def get_focus_widget(self):
         pass
 
-    def setup(self, options=DEFAULT_OPTIONS):
+    def setup(self):
         # Create an example action
         example_action = self.create_action(
             name={{cookiecutter.project_name.replace(" ", "")}}Actions.ExampleAction,
             text="Example action",
             tip="Example hover hint",
             icon=self.create_icon("spyder"),
-            icon_text="Example icon text",
             triggered=lambda: print("Example action triggered!"),
         )
 
@@ -78,10 +90,11 @@ class {{cookiecutter.project_name.replace(" ", "")}}Widget(PluginMainWidget):
             {{cookiecutter.project_name.replace(" ", "")}}OptionsMenuSections.ExampleSection,
         )
 
-    def on_option_update(self, option, value):
+    def update_actions(self):
         pass
 
-    def update_actions(self):
+    @on_conf_change
+    def on_section_conf_change(self, section):
         pass
 
     # --- Public API

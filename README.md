@@ -26,7 +26,8 @@ Running the cookiecutter.
 cookiecutter https://github.com/spyder-ide/spyder5-plugin-cookiecutter
 ```
 
-You can use the default values for quick testing, press enter until finished.
+You can use the default values for quick testing
+(generating a `SpyderDockablePlugin`), press enter until finished.
 You should see something like:
 
 ```bash
@@ -55,11 +56,22 @@ Choose from 1, 2, 3, 4, 5, 6 [1]:
 
 ## Installing the Spyder plugin
 
-After the cookiecutter has been created, install it for local development with:
+After the cookiecutter has been created, install it for local development.
+For example, if you used the default configuration the 
+`spyder-boilerplate` directory will be created and then you can do:
 
 ```bash
 cd spyder-boilerplate
 python setup.py develop
 ```
 
-Now if you run Spyder from master you should see a new Dockable Plugin appear.
+Now if you run Spyder, either from a Spyder installed version in the same 
+plugin environment or from development version (running `python boostrap.py` under the `5.x` branch of your local Spyder cloned repository), you should see:
+
+For `plugin_type`= `SpyderDockablePlugin`:
+* A new Dockable Plugin appear in the `View > Panes` menu.
+* Clicking the action in the menu for the plugin should make the pane for your plugin visible.
+* Clicking the example action from your plugin (either from the plugin options menu or the button with the Spyder logo) will print in the Spyder internal console the message `Example action triggered!`.
+
+For `plugin_type` = `SpyderPluginV2`:
+* A message in the console/terminal from where you launched Spyder saying `<Your plugin name> registered!`
