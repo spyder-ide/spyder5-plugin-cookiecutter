@@ -26,23 +26,13 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '${{ matrix.PYTHON_VERSION }}'
+      - name: Update pip
+        run: pip install -U pip
       - name: Install dependencies
-        run: pip install cookiecutter pre-commit
+        run: pip install cookiecutter
       - name: Run default cookiecutter
         run: |
           cd ..
           cookiecutter spyder5-plugin-cookiecutter --no-input
           cd spyder-boilerplate
           python setup.py develop
-      - name: Check format of created code
-        run: |
-          cd ..
-          cd spyder-boilerplate
-          git init
-          git config --global user.email "you@example.com"
-          git config --global user.name "Your Name"
-          git add .
-          git commit -m "Test"
-          pre-commit run -a || true
-          git --no-pager diff
-          pre-commit run -a
