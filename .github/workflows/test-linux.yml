@@ -26,8 +26,6 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '${{ matrix.PYTHON_VERSION }}'
-      - name: Update pip
-        run: pip install -U pip
       - name: Install dependencies
         run: pip install cookiecutter
       - name: Run default cookiecutter
@@ -35,4 +33,4 @@ jobs:
           cd ..
           cookiecutter spyder5-plugin-cookiecutter --no-input
           cd spyder-boilerplate
-          python setup.py develop
+          pip install -e .

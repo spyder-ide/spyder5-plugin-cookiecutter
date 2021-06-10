@@ -62,7 +62,7 @@ For example, if you used the default configuration the
 
 ```bash
 cd spyder-boilerplate
-python setup.py develop
+pip install -e .
 ```
 
 Now if you run Spyder, either from a Spyder installed version in the same 

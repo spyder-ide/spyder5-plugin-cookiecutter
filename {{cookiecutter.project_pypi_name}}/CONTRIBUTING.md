@@ -60,7 +60,7 @@ git clone git@github.com:your_name_here/{{ cookiecutter.project_pypi_name }}.git
 ```bash
 conda create -n {{ cookiecutter.project_pypi_name }} python
 cd {{ cookiecutter.project_pypi_name }}/
-python setup.py develop
+pip install -e .
 ```
 
 1. Create a branch for local development:
