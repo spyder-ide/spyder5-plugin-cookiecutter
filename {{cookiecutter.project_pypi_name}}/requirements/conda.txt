@@ -1,4 +1,4 @@
 qtawesome
 qtpy
 setuptools
-
+spyder

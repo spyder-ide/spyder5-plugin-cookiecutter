@@ -60,7 +60,7 @@ git clone git@github.com:your_name_here/{{ cookiecutter.project_pypi_name }}.git
 ```bash
 conda create -n {{ cookiecutter.project_pypi_name }} python
 cd {{ cookiecutter.project_pypi_name }}/
-python setup.py develop
+pip install -e .
 ```
 
 1. Create a branch for local development:
@@ -113,10 +113,9 @@ pytest tests/spyder/test_plugin.py
 
 A reminder for the maintainers on how to deploy.
 Make sure all your changes are committed (including an entry in HISTORY.rst).
-Then run:
+Then edit `{{ cookiecutter.project_package_name }}/__init__.py` and update the plugin version and run:
 
 ```bash
-bump2version patch  # possible: major / minor / patch
 git push
 git push --tags
 ```
