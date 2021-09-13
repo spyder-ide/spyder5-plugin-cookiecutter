@@ -51,9 +51,9 @@ class {{cookiecutter.project_name.replace(" ", "")}}({% if cookiecutter.plugin_t
     def get_icon(self):
         return QIcon()
 
-    def register(self):
+    def on_initialize(self):
         {% if cookiecutter.plugin_type == 'Spyder Dockable Plugin' -%}widget = self.get_widget(){% else %}container = self.get_container(){% endif %}
-        {% if cookiecutter.plugin_type != 'Spyder Dockable Plugin' -%}print('{{cookiecutter.project_name.replace(" ", "")}} registered!'){% endif %}
+        {% if cookiecutter.plugin_type != 'Spyder Dockable Plugin' -%}print('{{cookiecutter.project_name.replace(" ", "")}} initialized!'){% endif %}
 
     def check_compatibility(self):
         valid = True
